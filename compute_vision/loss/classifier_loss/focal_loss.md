@@ -63,7 +63,7 @@ Focal Loss 的两个属性：
 
 而且，被分类为 p<sub>t</sub> $\approx$ 0.968 的样本，与 CE 相比，会有少于 1000x 倍的 loss 值. 这就自然增加了将难分类样本的重要性(如 $\gamma$ = 2 且 p<sub>t</sub>$\leq$ 0.5 时，难分类样本的 loss 值会增加 4x 倍.)
 
-实际上，论文采用了 Focal Loss 的 \alpha$ -balanced 变形：
+实际上，论文采用了 Focal Loss 的 $\alpha$-balanced 变形：
 
 ![欧式距离](../../../images/focal_loss7.png)
 

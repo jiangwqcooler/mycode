@@ -111,6 +111,8 @@ Batch Normalization:
 
 因为非线性单元的输出分布形状会在训练过程中变化，归一化无法消除他的方差偏移，相反的，全连接和卷积层的输出一般是一个对称,非稀疏的一个分布，更加类似高斯分布，对他们进行归一化会产生更加稳定的分布。其实想想也是的，像relu这样的激活函数，如果你输入的数据是一个高斯分布，经过他变换出来的数据能是一个什么形状？小于0的被抑制了，也就是分布小于0的部分直接变成0了，这样不是很高斯了。
 
+BN在求均值去方差过程中，每个通道需要分开计算
+
 #### BN作用
 
 1. 可以选择较大的学习率，使得训练速度增长很快，具有快速收敛性。
@@ -135,6 +137,28 @@ BN可以用于一个神经网络的任何一个神经元上，文献中主要是
 通过上面的学习，我们知道BN层是对于每个神经元做归一化处理，甚至只需要对某一个神经元进行归一化，而不是对一整层网络的神经元进行归一化。既然BN是对单个神经元的运算，那么在CNN中卷积层上要怎么搞？假如某一层卷积层有6个特征图，每个特征图的大小是100*100，这样就相当于这一层网络有6*100*100个神经元，如果采用BN，就会有6*100*100个参数γ、β，这样岂不是太恐怖了。因此卷积层上的BN使用，其实也是使用了类似权值共享的策略，把一整张特征图当做一个神经元进行处理。
 
 参考：
+
+## IOU
+
+```python
+# encoding: utf-8
+def compute_IOU(rec1,rec2):
+
+    left_column_max  = max(rec1[0],rec2[0])
+    right_column_min = min(rec1[2],rec2[2])
+    up_row_max = max(rec1[1],rec2[1])
+    down_row_min = min(rec1[3],rec2[3])
+    #两矩形无相交区域的情况
+    if left_column_max>=right_column_min or down_row_min<=up_row_max:
+        return 0
+    # 两矩形有相交区域的情况
+    else:
+        S1 = (rec1[2]-rec1[0])*(rec1[3]-rec1[1])
+        S2 = (rec2[2]-rec2[0])*(rec2[3]-rec2[1])
+        S_cross = (down_row_min-up_row_max)*(right_column_min-left_column_max)
+        return S_cross/(S1+S2-S_cross)
+
+```
 
 https://www.cnblogs.com/yangmang/p/7477802.html
 https://cloud.tencent.com/developer/article/1327280

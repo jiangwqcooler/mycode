@@ -44,14 +44,14 @@ FaceNet 中是随机选取semi-hard triplets 进行训练的, （也可以选择
  
   - Batch All: 计算batch_size中所有valid的的hard triplet 和 semi-hard triplet， 然后取平均得到Loss
 
-    - 注意因为很多 easy triplets的情况，所以平均会导致Loss很小，所以是对所有 valid 的所有求平均 （下面代码中会介绍）
+    - 注意因为很多 easy triplets的情况，所以平均会导致Loss很小，所以是对除easy外所有 valid 的求平均
     - 可以产生 PK(K−1)(PK−K)个 triplets
 
       - PK个 anchor
       - K-1 个 positive
       - PK-K 个 negative
 
-  - Batch Hard: 对于每一个anchor， 选择距离最大的d(a, p) 和 距离最大的 d(a, n)
+  - Batch Hard: 对于每一个anchor， 选择距离最大的d(a, p) 和 距离最小的 d(a, n)
   
     - 所以公有 PK 个 三元组triplets
 
@@ -88,7 +88,8 @@ triplet loss的目的就是通过学习，让x<sup>a</sup>和x<sup>p</sup>特征
 ![欧式距离](../../../images/tripletloss8)
 
 
-参考：
-https://blog.csdn.net/u013082989/article/details/83537370
+参考：  
+https://blog.csdn.net/u013082989/article/details/83537370  
 https://omoindrot.github.io/triplet-loss#batch-hard-strategy
-https://blog.csdn.net/tangwei2014/article/details/46788025
+https://blog.csdn.net/tangwei2014/article/details/46788025  
+https://zhuanlan.zhihu.com/p/101143469

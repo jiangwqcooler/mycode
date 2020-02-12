@@ -6,7 +6,7 @@ SGD就是每一次迭代计算mini-batch的梯度，然后对参数进行更新�
 
 $g_t$ = $\Delta_{\theta_{t-1}}f(\theta_{t-1})$
 
-$\Delta_{\theta_{t-1}} = -\eta * g_t$
+$\Delta_{\theta_{t}} = -\eta * g_t$
 
 其中，$\eta$是学习率，$g_t$是梯度 SGD完全依赖于当前batch的梯度，所以$\eta$可理解为允许当前batch的梯度多大程度影响参数更新
 
@@ -118,3 +118,6 @@ Adam(Adaptive Moment Estimation)本质上是带有动量项的RMSprop，它利�
 对内存需求较小
 为不同的参数计算不同的自适应学习率
 也适用于大多非凸优化 - 适用于大数据集和高维空间
+
+参考：  
+https://zhuanlan.zhihu.com/p/22252270

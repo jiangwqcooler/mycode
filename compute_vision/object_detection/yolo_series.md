@@ -240,8 +240,7 @@ logistic回归用于对anchor包围的部分进行一个目标性评分(objectne
 
 
 参考：
-https://blog.csdn.net/u014380165/article/details/72616238
-
+https://blog.csdn.net/u014380165/article/details/72616238  
 https://www.jianshu.com/p/b02f64e0d44b
-
 https://blog.csdn.net/leviopku/article/details/82660381
+https://blog.csdn.net/linolzhang/article/details/54344350

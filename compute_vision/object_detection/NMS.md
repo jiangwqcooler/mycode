@@ -29,6 +29,7 @@ def hard_nms(box_scores, iou_threshold, top_k=-1, candidate_size=200):
     scores = box_scores[:, -1]                # 首先我们取出box中的最后一个元素也就是当前box检测到物体的概率
     boxes = box_scores[:, :-1]                # 取出box中的四个坐标(左上、右下)
     picked = []  
+    # b[np.lexsort(-b.T)]
     _, indexes = scores.sort(descending=True) # 按照降序排列所有的物体的概率，得到排序后在原数组中的索引信息 indexes
     indexes = indexes[:candidate_size]        # 只保留前 candidate_size 个 boxes 其余的不考虑了
     while len(indexes) > 0:
@@ -83,6 +84,8 @@ MS是最常用的目标检测后处理算法，但是NMS对于密集目标的检
 或者是这种形式：
 
 ![欧式距离](../../images/nms6.png)
+
+SoftNMS最终使用加权后的得分跟阈值比较，满足条件才清除掉
 
 ``` python
 

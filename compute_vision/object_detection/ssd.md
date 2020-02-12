@@ -3,8 +3,8 @@
 ### 前言
 
 目标检测近年来已经取得了很重要的进展，主流的算法主要分为两个类型（参考RefineDet）：
-- （1）two-stage方法，如R-CNN系算法，其主要思路是先通过启发式方法（selective search）或者CNN网络（RPN)产生一系列稀疏的候选框，然后对这些候选框进行分类与回归，two-stage方法的优势是准确度高；
-- （2）one-stage方法，如Yolo和SSD，其主要思路是均匀地在图片的不同位置进行密集抽样，抽样时可以采用不同尺度和长宽比，然后利用CNN提取特征后直接进行分类与回归，整个过程只需要一步，所以其优势是速度快，但是均匀的密集采样的一个重要缺点是训练比较困难，这主要是因为正样本与负样本（背景）极其不均衡（参见Focal Loss），导致模型准确度稍低。
+- two-stage方法，如R-CNN系算法，其主要思路是先通过启发式方法（selective search）或者CNN网络（RPN)产生一系列稀疏的候选框，然后对这些候选框进行分类与回归，two-stage方法的优势是准确度高；
+- one-stage方法，如Yolo和SSD，其主要思路是均匀地在图片的不同位置进行密集抽样，抽样时可以采用不同尺度和长宽比，然后利用CNN提取特征后直接进行分类与回归，整个过程只需要一步，所以其优势是速度快，但是均匀的密集采样的一个重要缺点是训练比较困难，这主要是因为正样本与负样本（背景）极其不均衡（参见Focal Loss），导致模型准确度稍低。
 
 对于Faster R-CNN，其先通过CNN得到候选框，然后再进行分类与回归，而Yolo与SSD可以一步到位完成检测。
 
@@ -53,13 +53,13 @@ SSD和Yolo一样都是采用一个CNN网络来进行检测，但是却采用了�
 
 ![欧式距离](../../images/ssd5.svg)
 
-其中N是先验框的正样本数量，这里s<sup>k</sup><sub>ij</sub> $\in${0, 1}为一个指示参数，当s<sup>k</sup><sub>ij</sub>  = 1时表示第i个先验框与第j个ground truth匹配，并且ground truth的类别为k。 c为类别置信度预测值。 l为先验框的所对应边界框的位置预测值，而 g是ground truth的位置参数。对于位置误差，其采用Smooth L1 loss，定义如下：
+其中N是先验框的正样本数量，这里x<sup>k</sup><sub>ij</sub> $\in${0, 1}为一个指示参数，当s<sup>k</sup><sub>ij</sub>  = 1时表示第i个先验框与第j个ground truth匹配，并且ground truth的类别为k。 c为类别置信度预测值。 l为先验框的所对应边界框的位置预测值，而 g是ground truth的位置参数。对于位置误差，其采用Smooth L1 loss，定义如下：
 
 ![欧式距离](../../images/ssd6.jpg)
 
 ![欧式距离](../../images/ssd7.jpg)
 
-由于s<sup>k</sup><sub>ij</sub>的存在，所以位置误差仅针对正样本进行计算。
+由于x<sup>k</sup><sub>ij</sub>的存在，所以位置误差仅针对正样本进行计算。
 
 对于置信度误差，其采用softmax loss:
 
